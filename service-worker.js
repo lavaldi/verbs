@@ -1,10 +1,10 @@
 const cacheName = 'verbsPWA-v1';
 const dataCacheName = 'verbsData-v1';
 const filesToCache = [
-  '/',
-  '/index.html',
-  '/scripts/app.min.js',
-  '/styles/main.css',
+  './',
+  './index.html',
+  './scripts/app.min.js',
+  './styles/main.css',
 ];
 const verbsAPIUrlBase = '/';
 
