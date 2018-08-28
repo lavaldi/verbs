@@ -105,5 +105,4 @@
         console.info('Service Worker Registered');
       });
   }
-
 })();
