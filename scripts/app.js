@@ -1,60 +1,55 @@
-(function () {
-  'use strict';
+class App {
 
-  const app = {
-    isLoading: true,
-    spinner: document.querySelector('.js-loader'),
-    cardTemplate: document.querySelector('.js-card-template'),
-    container: document.querySelector('.js-main'),
-    searchInput: document.getElementById('searchVerb'),
-  };
-
-  /*****************************************************************************
-   *
-   * Event listeners for UI elements
-   *
-   ****************************************************************************/
-
-  /* Event listener for search input */
-  document.getElementById('searchVerb').addEventListener('keyup', function () {
-    app.updateCardsToShow();
-  });
-
-  /*****************************************************************************
-   *
-   * Methods to update/refresh the UI
-   *
-   ****************************************************************************/
-
-  // Show the cards with the list of the verbs.
-  app.showCards = function (data) {
-    for (const element of data) {
-      const card = app.cardTemplate.cloneNode(true);
-      card.classList.remove('js-card-template');
-      card.removeAttribute('hidden');
-      card.querySelector('.js-base-form-value').textContent = element.baseForm;
-      card.querySelector('.js-past-form-value').textContent = element.pastForm;
-      card.querySelector('.js-past-participle-form-value').textContent = element.pastParticipleForm;
-      card.querySelector('.js-s-es-ies-value').textContent = element.sEsIesForm;
-      card.querySelector('.js-ing-form-value').textContent = element.ingForm;
-      app.container.appendChild(card);
+  constructor() {
+    if (!App.instance) {
+      this.setSettings();
+      this.subscribeEvents();
+      App.instance = this;
     }
-    if (app.isLoading) {
-      app.spinner.setAttribute('hidden', true);
-      app.container.removeAttribute('hidden');
-      app.isLoading = false;
-    }
-  };
-
-  app.updateCardsToShow = function () {
-    const filter = app.searchInput.value.toUpperCase();
-    app.searchInCards(filter);
+    return App.instance;
   }
 
-  app.searchInCards = function (filter) {
-    const cards = document.querySelectorAll('.js-card');
+  setSettings() {
+    this.settings = {
+      isLoading: true,
+      cardsClass: '.js-card',
+      cardTplClass: 'js-card-template',
+      baseFormClass: '.js-base-form-value',
+      pastFormClass: '.js-past-form-value',
+      pastParticipleFormClass: '.js-past-participle-form-value',
+      sEsIesFormClass: '.js-s-es-ies-value',
+      ingFormClass: '.js-ing-form-value',
+      spinner: document.querySelector('.js-loader'),
+      cardTemplate: document.querySelector('.js-card-template'),
+      container: document.querySelector('.js-main'),
+      searchInput: document.getElementById('searchVerb'),
+    }
+  }
+
+  subscribeEvents() {
+    document.addEventListener('DOMContentLoaded', this.initApp);
+    document.getElementById('searchVerb').addEventListener('keyup', this.updateCardsToShow);
+  }
+
+  initApp = () => {
+    window.localforage.getItem('verbs', (err, verbsList) => {
+      if (verbsList) {
+        this.showCards(verbsList);
+      } else {
+        this.getForecast();
+      }
+    });
+  }
+
+  updateCardsToShow = () => {
+    const filter = this.settings.searchInput.value.toUpperCase();
+    this.searchInCards(filter);
+  }
+
+  searchInCards = (filter) => {
+    const cards = document.querySelectorAll(this.settings.cardsClass);
     for (const card of cards) {
-      const name = card.getElementsByClassName('js-base-form-value')[0].innerHTML;
+      const name = card.querySelector(this.settings.baseFormClass)[0].innerHTML;
       if (name.toUpperCase().indexOf(filter) >= 0) {
         card.style.display = 'block';
       } else {
@@ -63,46 +58,54 @@
     }
   }
 
-  /*****************************************************************************
-   *
-   * Methods for dealing with the model
-   *
-   ****************************************************************************/
+  showCards = (data) => {
+    for (const element of data) {
+      const card = app.cardTemplate.cloneNode(true);
+      card.classList.remove(this.settings.cardTplClass);
+      card.removeAttribute('hidden');
+      card.querySelector(this.settings.baseFormClass).textContent = element.baseForm;
+      card.querySelector(this.settings.pastFormClass).textContent = element.pastForm;
+      card.querySelector(this.settings.pastParticipleFormClass).textContent = element.pastParticipleForm;
+      card.querySelector(this.settings.sEsIesFormClass).textContent = element.sEsIesForm;
+      card.querySelector(this.settings.ingFormClass).textContent = element.ingForm;
+      app.container.appendChild(card);
+    }
+    if (app.isLoading) {
+      this.settings.spinner.setAttribute('hidden', true);
+      this.settings.container.removeAttribute('hidden');
+      this.settings.isLoading = false;
+    }
+  }
 
-  // Get all verbs
-  app.getForecast = function () {
+  getForecast = () => {
     const url = '/db/verbs.json';
     // Make the XHR to get the data, then update the cards
     const request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
+    request.onreadystatechange = () => {
       if (request.readyState === XMLHttpRequest.DONE) {
         if (request.status === 200) {
           const response = JSON.parse(request.response);
           window.localforage.setItem('verbs', response);
-          app.showCards(response);
+          this.showCards(response);
         }
       }
     };
     request.open('GET', url);
     request.send();
-  };
+  }
+}
 
-  // Init
-  document.addEventListener('DOMContentLoaded', function () {
-    window.localforage.getItem('verbs', function (err, verbsList) {
-      if (verbsList) {
-        app.showCards(verbsList);
-      } else {
-        app.getForecast();
-      }
-    });
-  });
-
+const installSW = () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/service-worker.js')
-      .then(function () {
+      .then(() => {
         console.info('Service Worker Registered');
       });
   }
-})();
+}
+
+window.addEventListener('load', () => {
+  new App();
+  installSW();
+});

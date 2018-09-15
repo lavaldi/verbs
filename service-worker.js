@@ -1,5 +1,5 @@
-const cacheName = 'verbsPWA-v1.2';
-const dataCacheName = 'verbsData-v1.2';
+const cacheName = 'verbsPWA-v1.2.1';
+const dataCacheName = 'verbsData-v1.2.1';
 const filesToCache = [
   '/',
   '/index.html',
