@@ -1,5 +1,5 @@
-const cacheName = 'verbsPWA-v1.2.1';
-const dataCacheName = 'verbsData-v1.2.1';
+const cacheName = 'verbsPWA-v1.2.2';
+const dataCacheName = 'verbsData-v1.2.2';
 const filesToCache = [
   '/',
   '/index.html',
@@ -10,6 +10,7 @@ const verbsAPIUrlBase = '/';
 
 self.addEventListener('install', function (e) {
   console.log('[ServiceWorker] Install');
+  self.skipWaiting();
   e.waitUntil(
     caches.open(cacheName).then(function (cache) {
       console.log('[ServiceWorker] Caching app shell');
