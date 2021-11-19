@@ -1,65 +1,128 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import {
+  Flex,
+  Container,
+  Heading,
+  Box,
+  VStack,
+  Input,
+  SimpleGrid,
+  Text,
+  Divider,
+  Stack,
+} from "@chakra-ui/react";
 
 export default function Home() {
+  const property = {
+    id: "996",
+    baseForm: "yawn",
+    pastForm: "yawned",
+    pastParticipleForm: "yawned",
+    sEsIesForm: "yawns",
+    ingForm: "yawning",
+  };
+
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>Verb Forms</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
+      <Flex
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        as="header"
+        py={4}
+        px={6}
+        bg="yellow.300"
+        color="black"
+      >
+        <Heading as="h1" size="lg" letterSpacing={"tighter"}>
+          Verbs
+        </Heading>
+        <Box display={{ base: "block", md: "block" }} mt={{ base: 4, md: 0 }}>
           <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+            href="https://github.com/lavaldi/verbs"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            GitHub
           </a>
+        </Box>
+      </Flex>
+      <Container maxW="container.sm">
+        <VStack spacing={4} align="stretch" py={6}>
+          <Input placeholder="Search" type="search" size="lg" />
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+            <Box p="6">
+              <Heading
+                mb="1"
+                fontWeight="semibold"
+                as="h2"
+                size="md"
+                textTransform="uppercase"
+              >
+                {property.baseForm}
+              </Heading>
+              <SimpleGrid columns={2}>
+                <Box display="flex" alignItems="baseline">
+                  <Text color="gray.500" fontWeight="semibold">
+                    Past Form:
+                  </Text>
+                  <Text ml="1">{property.pastForm}</Text>
+                </Box>
+                <Box display="flex" alignItems="baseline">
+                  <Text color="gray.500" fontWeight="semibold">
+                    s/es/ies:
+                  </Text>
+                  <Text ml="1">{property.sEsIesForm}</Text>
+                </Box>
+                <Box display="flex" alignItems="baseline">
+                  <Text color="gray.500" fontWeight="semibold">
+                    Past Participle Form:
+                  </Text>
+                  <Text ml="1">{property.pastParticipleForm}</Text>
+                </Box>
+                <Box display="flex" alignItems="baseline">
+                  <Text color="gray.500" fontWeight="semibold">
+                    ing Form:
+                  </Text>
+                  <Text ml="1">{property.ingForm}</Text>
+                </Box>
+              </SimpleGrid>
+            </Box>
+          </Box>
+        </VStack>
+      </Container>
+      <Divider />
+      <Box
+        as="footer"
+        role="contentinfo"
+        mx="auto"
+        maxW="7xl"
+        py="6"
+        px={{ base: "4", md: "8" }}
+      >
+        <Stack
+          direction="row"
+          spacing="4"
+          align="center"
+          justify="space-between"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+          <Text fontSize="sm" alignSelf={{ base: "center", sm: "start" }}>
+            &copy; {new Date().getFullYear()} lavaldi.com. All rights reserved.
+          </Text>
+          <a
+            href="https://github.com/lavaldi/verbs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </Stack>
+      </Box>
+    </>
+  );
 }
