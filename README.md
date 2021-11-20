@@ -1,13 +1,20 @@
 # Verbs PWA
 
-Application for search verb forms
+This is a A PWA of 1000 English verb forms. 
 
-Look at here 👉 [https://verbs.lavaldi.com/](https://verbs.lavaldi.com/)
+Using:
 
-### Lighthouse Audit
+- [Next.js](https://nextjs.org/)
+- [next-pwa](https://github.com/shadowwalker/next-pwa)
+- [Chakra UI](https://chakra-ui.com/)
 
-<p align="center">
-	<br>
-	<img src="images/lighthouse.png" width="500">
-	<br>
-</p>
+## Running locally
+
+```bash
+$ git clone https://github.com/lavaldi/verbs.git
+$ cd verbs
+$ yarn
+$ yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

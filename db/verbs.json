@@ -2058,7 +2058,7 @@
   {
     "id": "258",
     "baseForm": "dive",
-    "pastForm": "dived ",
+    "pastForm": "dived",
     "pastParticipleForm": "dived",
     "sEsIesForm": "dives",
     "ingForm": "diving"
@@ -6610,8 +6610,8 @@
   {
     "id": "827",
     "baseForm": "sneak",
-    "pastForm": "snuck",
-    "pastParticipleForm": "snuck",
+    "pastForm": "sneaked",
+    "pastParticipleForm": "sneaked",
     "sEsIesForm": "sneaks",
     "ingForm": "sneaking"
   },
@@ -6840,7 +6840,12 @@
     "ingForm": "stating"
   },
   {
-    "id": "856"
+    "id": "856",
+    "baseForm": "",
+    "pastForm": "",
+    "pastParticipleForm": "",
+    "sEsIesForm": "",
+    "ingForm": ""
   },
   {
     "id": "857",
