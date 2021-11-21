@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "../theme";
+import { Chakra } from "../src/Chakra";
+
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -8,9 +8,9 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Verbs Forms</title>
       </Head>
-      <ChakraProvider theme={theme}>
+      <Chakra cookies={pageProps.cookies}>
         <Component {...pageProps} />
-      </ChakraProvider>
+      </Chakra>
     </>
   );
 }

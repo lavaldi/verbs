@@ -1,6 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ColorModeScript } from "@chakra-ui/react";
-import theme from "../theme";
 
 const APP_NAME = "Verb Tenses";
 const APP_DESCRIPTION = "1000 English Verbs Forms";
@@ -30,7 +28,6 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <NextScript />
         </body>
