@@ -27,7 +27,6 @@ class MyDocument extends Document {
             href="/icons/apple-touch-icon.png"
           />
           <link rel="manifest" href="/manifest.json" />
-          <title>Verbs Forms</title>
           <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>
