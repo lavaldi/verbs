@@ -27,6 +27,7 @@ class MyDocument extends Document {
             href="/icons/apple-180.png"
           />
           <link rel="manifest" href="/manifest.json" />
+          <title>Verbs Forms</title>
           <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>
