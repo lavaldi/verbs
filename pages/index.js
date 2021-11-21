@@ -109,15 +109,18 @@ const Element = ({ verb }) => (
   </Box>
 );
 
-export default function Home({ verbs }) {
-  const [filteredVerbs, setFilteredVerbs] = useState(verbs);
+export default function Home() {
+  const [search, setSearchTerm] = useState("");
 
-  const onChange = (e) => {
-    const newVerbs = verbs.filter((verb) =>
-      verb.baseForm.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setFilteredVerbs(newVerbs);
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
   };
+
+  const filteredVerbs = search
+    ? verbs.filter((verb) =>
+        verb.baseForm.toLowerCase().includes(search.toLocaleLowerCase())
+      )
+    : verbs;
 
   return (
     <Grid h="100vh" templateRows="1fr auto">
@@ -126,7 +129,8 @@ export default function Home({ verbs }) {
         <Container maxW="container.sm">
           <VStack spacing={4} align="stretch" py={6}>
             <Input
-              onChange={onChange}
+              onChange={handleChange}
+              value={search}
               placeholder="Search"
               type="search"
               size="lg"
@@ -141,10 +145,4 @@ export default function Home({ verbs }) {
       <Footer />
     </Grid>
   );
-}
-
-export async function getStaticProps(context) {
-  return {
-    props: { verbs },
-  };
 }
