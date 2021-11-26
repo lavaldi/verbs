@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 import {
   Grid,
   Flex,
@@ -69,45 +71,55 @@ const Footer = () => (
   </GridItem>
 );
 
-const Element = ({ verb }) => (
-  <Box p="6" borderWidth="1px" borderRadius="lg" overflow="hidden">
-    <Heading
-      mb="1"
-      fontWeight="semibold"
-      as="h2"
-      size="md"
-      textTransform="uppercase"
+const Element = ({ index, data, style }) => {
+  const verb = data[index];
+
+  return (
+    <Box
+      p="6"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      style={style}
     >
-      {verb.baseForm}
-    </Heading>
-    <SimpleGrid columns={2}>
-      <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
-          Past Form:
-        </Text>
-        <Text ml="1">{verb.pastForm}</Text>
-      </Box>
-      <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
-          s/es/ies:
-        </Text>
-        <Text ml="1">{verb.sEsIesForm}</Text>
-      </Box>
-      <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
-          Past Participle Form:
-        </Text>
-        <Text ml="1">{verb.pastParticipleForm}</Text>
-      </Box>
-      <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
-          ing Form:
-        </Text>
-        <Text ml="1">{verb.ingForm}</Text>
-      </Box>
-    </SimpleGrid>
-  </Box>
-);
+      <Heading
+        mb="1"
+        fontWeight="semibold"
+        as="h2"
+        size="md"
+        textTransform="uppercase"
+      >
+        {verb.baseForm}
+      </Heading>
+      <SimpleGrid columns={2}>
+        <Box display="flex" alignItems="baseline">
+          <Text color="gray.500" fontWeight="semibold">
+            Past Form:
+          </Text>
+          <Text ml="1">{verb.pastForm}</Text>
+        </Box>
+        <Box display="flex" alignItems="baseline">
+          <Text color="gray.500" fontWeight="semibold">
+            s/es/ies:
+          </Text>
+          <Text ml="1">{verb.sEsIesForm}</Text>
+        </Box>
+        <Box display="flex" alignItems="baseline">
+          <Text color="gray.500" fontWeight="semibold">
+            Past Participle Form:
+          </Text>
+          <Text ml="1">{verb.pastParticipleForm}</Text>
+        </Box>
+        <Box display="flex" alignItems="baseline">
+          <Text color="gray.500" fontWeight="semibold">
+            ing Form:
+          </Text>
+          <Text ml="1">{verb.ingForm}</Text>
+        </Box>
+      </SimpleGrid>
+    </Box>
+  );
+};
 
 export default function Home() {
   const [search, setSearchTerm] = useState("");
@@ -126,8 +138,8 @@ export default function Home() {
     <Grid h="100vh" templateRows="1fr auto">
       <Box>
         <Header />
-        <Container maxW="container.sm">
-          <VStack spacing={4} align="stretch" py={6}>
+        <Container maxW="container.sm" style={{ height: "calc(100% - 116px)" }}>
+          <VStack spacing={4} align="stretch" py={6} h="100%">
             <Input
               onChange={handleChange}
               value={search}
@@ -135,10 +147,23 @@ export default function Home() {
               type="search"
               size="lg"
             />
-            {filteredVerbs.map((verb) => {
+            {/* {filteredVerbs.map((verb) => {
               if (verb.baseForm.trim() === "") return null;
               return <Element key={verb.id} verb={verb} />;
-            })}
+            })} */}
+            <AutoSizer>
+              {({ height, width }) => (
+                <FixedSizeList
+                  height={height}
+                  width={width}
+                  itemSize={126}
+                  itemData={filteredVerbs}
+                  itemCount={filteredVerbs.length}
+                >
+                  {Element}
+                </FixedSizeList>
+              )}
+            </AutoSizer>
           </VStack>
         </Container>
       </Box>
