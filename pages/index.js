@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Grid,
   Flex,
@@ -110,17 +110,21 @@ const Element = ({ verb }) => (
 );
 
 export default function Home() {
-  const [search, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredVerbs = search
-    ? verbs.filter((verb) =>
-        verb.baseForm.toLowerCase().includes(search.toLocaleLowerCase())
-      )
-    : verbs;
+  const filteredVerbs = useMemo(
+    () =>
+      searchTerm
+        ? verbs.filter((verb) =>
+            verb.baseForm.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+          )
+        : verbs,
+    [searchTerm]
+  );
 
   return (
     <Grid h="100vh" templateRows="1fr auto">
@@ -130,7 +134,7 @@ export default function Home() {
           <VStack spacing={4} align="stretch" py={6}>
             <Input
               onChange={handleChange}
-              value={search}
+              value={searchTerm}
               placeholder="Search"
               type="search"
               size="lg"
