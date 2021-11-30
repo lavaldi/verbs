@@ -6,7 +6,7 @@ const APP_DESCRIPTION = "1000 English Verbs Forms";
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <meta name="application-name" content={APP_NAME} />
           <meta name="apple-mobile-web-app-capable" content="yes" />

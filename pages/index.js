@@ -82,25 +82,25 @@ const Element = ({ verb }) => (
     </Heading>
     <SimpleGrid columns={2}>
       <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
+        <Text color="gray.600" fontWeight="semibold">
           Past Form:
         </Text>
         <Text ml="1">{verb.pastForm}</Text>
       </Box>
       <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
+        <Text color="gray.600" fontWeight="semibold">
           s/es/ies:
         </Text>
         <Text ml="1">{verb.sEsIesForm}</Text>
       </Box>
       <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
+        <Text color="gray.600" fontWeight="semibold">
           Past Participle Form:
         </Text>
         <Text ml="1">{verb.pastParticipleForm}</Text>
       </Box>
       <Box display="flex" alignItems="baseline">
-        <Text color="gray.500" fontWeight="semibold">
+        <Text color="gray.600" fontWeight="semibold">
           ing Form:
         </Text>
         <Text ml="1">{verb.ingForm}</Text>
